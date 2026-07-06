@@ -1,0 +1,2 @@
+id,restaurant_id,decision_type,inputs_json,chosen_option,outcome_json,decided_at
+1,1,supplier,"{""supplier"": ""Fresh Farms Produce"", ""lead_time_days"": 2}",Accept,"{""profit"": 500.0}",2023-09-01T10:00:00

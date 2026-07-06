@@ -1,0 +1,4 @@
+id,restaurant_id,name,category,cost_price,sell_price
+1,1,Classic Burger,Mains,3.5,12.0
+2,1,Fries,Sides,0.5,4.0
+3,1,Coke,Drinks,0.3,2.5

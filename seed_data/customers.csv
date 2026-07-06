@@ -1,0 +1,3 @@
+id,restaurant_id,name,visit_count,avg_spend,churn_flag
+1,1,Alice,5,25.0,False
+2,1,Bob,2,15.0,True

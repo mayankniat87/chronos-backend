@@ -1,0 +1,3 @@
+id,restaurant_id,customer_id,type,value,date,status
+1,1,1,regular,28.5,2023-10-01,completed
+2,1,2,regular,15.0,2023-10-02,completed

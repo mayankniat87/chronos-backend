@@ -1,0 +1,4 @@
+id,restaurant_id,role,weekly_hours,hourly_cost,shift_pattern
+1,1,Head Chef,50,30.0,Morning
+2,1,Line Cook,40,20.0,Evening
+3,1,Server,30,15.0,Split
