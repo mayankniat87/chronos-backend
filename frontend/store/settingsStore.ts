@@ -13,8 +13,11 @@ interface SettingsState {
   setMobileSidebarOpen: (open: boolean) => void;
 }
 
+const DEFAULT_API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+
 export const useSettingsStore = create<SettingsState>((set) => ({
-  apiBaseUrl: 'http://localhost:8000',
+  apiBaseUrl: DEFAULT_API_BASE_URL,
   demoMode: true,
   theme: 'dark',
   notificationsEnabled: true,
