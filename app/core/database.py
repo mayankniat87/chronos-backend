@@ -1,30 +1,25 @@
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from app.core.config import settings
 
-# Check if we are using SQLite to supply correct arguments
-is_sqlite = settings.DATABASE_URL.startswith("sqlite")
-
+# SQLite needs check_same_thread=False because FastAPI can hand a request
+# off to a different thread than the one that opened the connection.
+# pool_pre_ping guards against stale connections when DATABASE_URL points
+# at a real network database (Postgres, etc.) instead of local SQLite.
 connect_args = {}
-if is_sqlite:
-    # Necessary for SQLite in FastAPI as multiple threads can access the DB
+engine_kwargs = {"pool_pre_ping": True}
+if settings.DATABASE_URL.startswith("sqlite"):
     connect_args = {"check_same_thread": False}
 
-engine = create_engine(
-    settings.DATABASE_URL,
-    connect_args=connect_args
-)
+engine = create_engine(settings.DATABASE_URL, connect_args=connect_args, **engine_kwargs)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
+
 def get_db():
-    """
-    Dependency to provide a database session for each request.
-    Closes the session after the request is finished.
-    """
+    """FastAPI dependency that yields a request-scoped DB session."""
     db = SessionLocal()
     try:
         yield db

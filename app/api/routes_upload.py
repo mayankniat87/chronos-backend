@@ -16,7 +16,6 @@ from app.models.restaurant import (
 
 # Set up logging
 logger = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO)
 
 router = APIRouter(prefix="/api/upload", tags=["Upload"])
 

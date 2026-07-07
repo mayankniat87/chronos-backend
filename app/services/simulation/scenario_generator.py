@@ -8,15 +8,45 @@ def generate_scenarios(restaurant_id: int, decision_type: str, params: Dict[str,
     """
     
     # 1. Optimistic: Demand is 15% higher
-    optimistic = evaluate_decision(restaurant_id, decision_type, params, demand_multiplier=1.15, db=db)
+    optimistic_params = params.copy()
+    optimistic_params["cost_multiplier"] = 0.97
+
+    optimistic = evaluate_decision(
+        restaurant_id,
+        decision_type,
+        optimistic_params,
+        demand_multiplier=1.15,
+        db=db
+    )
     optimistic["name"] = "optimistic"
     
     # 2. Likely: Expected demand
-    likely = evaluate_decision(restaurant_id, decision_type, params, demand_multiplier=1.0, db=db)
+    likely_params = params.copy()
+    likely_params["cost_multiplier"] = 1.0
+
+    likely = evaluate_decision(
+        restaurant_id,
+        decision_type,
+        likely_params,
+        demand_multiplier=1.0,
+        db=db
+    )
     likely["name"] = "likely"
-    
+
     # 3. Pessimistic: Demand is 15% lower
-    pessimistic = evaluate_decision(restaurant_id, decision_type, params, demand_multiplier=0.85, db=db)
+    pessimistic_params = params.copy()
+    pessimistic_params["cost_multiplier"] = 1.05
+
+    pessimistic = evaluate_decision(
+        restaurant_id,
+        decision_type,
+        pessimistic_params,
+        demand_multiplier=0.85,
+        db=db
+    )
     pessimistic["name"] = "pessimistic"
-    
+
+    if pessimistic["risk_level"] == "low":
+        pessimistic["risk_level"] = "medium"
+
     return [optimistic, likely, pessimistic]

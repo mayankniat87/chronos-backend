@@ -1,4 +1,5 @@
 from typing import List, Dict, Any
+from statistics import pstdev
 
 def calculate_confidence(scenarios: List[Dict[str, Any]]) -> float:
     """
@@ -8,8 +9,13 @@ def calculate_confidence(scenarios: List[Dict[str, Any]]) -> float:
     """
     if not scenarios:
         return 0.5
+    
+    # Small data penalty
+    if len(scenarios) < 3:
+        return 0.50
         
     profits = [s.get("profit", 0) for s in scenarios]
+    revenues = [s.get("revenue", 0) for s in scenarios]
     max_p = max(profits)
     min_p = min(profits)
     
@@ -19,14 +25,30 @@ def calculate_confidence(scenarios: List[Dict[str, Any]]) -> float:
     spread = abs(max_p - min_p)
     avg = sum(profits) / len(profits)
     
-    if avg == 0:
-        avg = 1.0
+    avg = max(abs(avg), 1.0)
         
-    volatility = spread / abs(avg)
+    volatility = spread / avg
+
+    # Profit stability using standard deviation
+    std_dev = pstdev(profits) if len(profits) > 1 else 0
+    stability_penalty = min(std_dev / avg, 0.30)
     
     # Base confidence is 90% (assuming good MVP data completeness).
     # Subtract volatility penalty.
-    penalty = min(volatility * 0.2, 0.4)
+    penalty = min(
+        volatility * 0.15 +
+        stability_penalty * 0.15,
+        0.40
+    )
     
-    confidence = 0.90 - penalty
-    return round(max(0.1, confidence), 2)
+    # Small reward if revenues are consistent
+    revenue_spread = (max(revenues) - min(revenues)) if revenues else 0
+
+    if revenue_spread < 500:
+        confidence_bonus = 0.03
+    else:
+        confidence_bonus = 0
+
+    confidence = 0.90 - penalty + confidence_bonus
+    confidence = max(0.10, min(confidence, 0.98))
+    return round(confidence, 2)

@@ -3,12 +3,13 @@ import json
 from typing import Dict, Any, List
 from google import genai
 from google.genai import types
+from app.core.config import settings
 
 def explain_decision(question: str, scenarios: List[Dict[str, Any]], graph_context: Dict[str, Any]) -> Dict[str, str]:
     """
     Uses Gemini to narrate the finalized deterministic scenarios.
     """
-    api_key = os.environ.get("GEMINI_API_KEY")
+    api_key = settings.GEMINI_API_KEY
     if not api_key:
         return _fallback_explanation()
 
@@ -40,7 +41,7 @@ def explain_decision(question: str, scenarios: List[Dict[str, Any]], graph_conte
     
     try:
         response = client.models.generate_content(
-            model='gemini-2.5-pro',
+            model=settings.GEMINI_MODEL,
             contents=prompt,
             config=types.GenerateContentConfig(
                 system_instruction=system_instruction,

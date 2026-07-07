@@ -1,7 +1,20 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, Date, DateTime, ForeignKey, JSON
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    Float,
+    Boolean,
+    Date,
+    DateTime,
+    ForeignKey,
+    JSON,
+)
 from sqlalchemy.orm import relationship
-from datetime import datetime
+from datetime import datetime, timezone
 from app.core.database import Base
+
+def _utcnow():
+    return datetime.now(timezone.utc)
 
 class Restaurant(Base):
     __tablename__ = "restaurants"
@@ -27,7 +40,7 @@ class MenuItem(Base):
     __tablename__ = "menu_items"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String, nullable=False)
     category = Column(String, nullable=False)
     cost_price = Column(Float, nullable=False)
@@ -43,7 +56,7 @@ class Supplier(Base):
     __tablename__ = "suppliers"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String, nullable=False)
     reliability_score = Column(Float, nullable=False, default=1.0)
     avg_lead_time_days = Column(Float, nullable=False, default=1.0)
@@ -57,9 +70,9 @@ class InventoryItem(Base):
     __tablename__ = "inventory_items"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
-    menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False)
-    supplier_id = Column(Integer, ForeignKey("suppliers.id", ondelete="SET NULL"), nullable=True)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
+    menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False, index=True)
+    supplier_id = Column(Integer, ForeignKey("suppliers.id", ondelete="SET NULL"), nullable=True, index=True)
     stock_qty = Column(Float, nullable=False, default=0.0)
     reorder_level = Column(Float, nullable=False, default=0.0)
     storage_capacity = Column(Float, nullable=False, default=0.0)
@@ -74,7 +87,7 @@ class Staff(Base):
     __tablename__ = "staff"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     role = Column(String, nullable=False)
     weekly_hours = Column(Float, nullable=False, default=0.0)
     hourly_cost = Column(Float, nullable=False, default=0.0)
@@ -88,7 +101,7 @@ class Customer(Base):
     __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     name = Column(String, nullable=False)
     visit_count = Column(Integer, nullable=False, default=0)
     avg_spend = Column(Float, nullable=False, default=0.0)
@@ -103,8 +116,8 @@ class Order(Base):
     __tablename__ = "orders"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
-    customer_id = Column(Integer, ForeignKey("customers.id", ondelete="SET NULL"), nullable=True)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
+    customer_id = Column(Integer, ForeignKey("customers.id", ondelete="SET NULL"), nullable=True, index=True)
     type = Column(String, nullable=False)  # e.g., 'regular', 'catering', 'bulk'
     value = Column(Float, nullable=False, default=0.0)
     date = Column(Date, nullable=False)
@@ -120,8 +133,8 @@ class OrderItem(Base):
     __tablename__ = "order_items"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False)
-    menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False)
+    order_id = Column(Integer, ForeignKey("orders.id", ondelete="CASCADE"), nullable=False, index=True)
+    menu_item_id = Column(Integer, ForeignKey("menu_items.id", ondelete="CASCADE"), nullable=False, index=True)
     qty = Column(Float, nullable=False, default=1.0)
     price_at_order = Column(Float, nullable=False)
 
@@ -134,7 +147,7 @@ class Expense(Base):
     __tablename__ = "expenses"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     category = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
     date = Column(Date, nullable=False)
@@ -147,12 +160,12 @@ class DecisionLog(Base):
     __tablename__ = "decisions_log"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     decision_type = Column(String, nullable=False)  # hire, pricing, supplier, combo, etc.
     inputs_json = Column(JSON, nullable=False)
     chosen_option = Column(String, nullable=False)
     outcome_json = Column(JSON, nullable=True)
-    decided_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    decided_at = Column(DateTime, nullable=False, default=_utcnow)
 
     # Relationships
     restaurant = relationship("Restaurant", back_populates="decisions_log")
@@ -162,12 +175,12 @@ class SimulationRun(Base):
     __tablename__ = "simulation_runs"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False)
+    restaurant_id = Column(Integer, ForeignKey("restaurants.id", ondelete="CASCADE"), nullable=False, index=True)
     question_text = Column(String, nullable=False)
     scenarios_json = Column(JSON, nullable=False)
     recommendation = Column(String, nullable=False)
     confidence = Column(Float, nullable=False)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    created_at = Column(DateTime, nullable=False, default=_utcnow)
 
     # Relationships
     restaurant = relationship("Restaurant", back_populates="simulation_runs")

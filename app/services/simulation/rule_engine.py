@@ -31,7 +31,8 @@ def evaluate_decision(restaurant_id: int, decision_type: str, params: Dict[str, 
     daily_staff_cost = sum(s.hourly_cost * (s.weekly_hours / 7.0) for s in restaurant.staff) if restaurant.staff else 200.0
     # Inventory cost roughly 30% of revenue
     base_daily_cost = daily_staff_cost + (base_daily_revenue * 0.3)
-    
+    cost_multiplier = params.get("cost_multiplier", 1.0)
+    base_daily_cost *= cost_multiplier
     base_profit = base_daily_revenue - base_daily_cost
 
     # 1. HIRE DECISION
@@ -119,7 +120,8 @@ def evaluate_decision(restaurant_id: int, decision_type: str, params: Dict[str, 
         metrics["revenue"] = new_revenue
         metrics["cost"] = new_cost
         metrics["profit"] = new_revenue - new_cost
-        metrics["details"]["customer_wait_time_change"] = "+5 mins" if metrics["risk_level"] == "high" else "+1 mins"
+        metrics["metrics"]["customer_wait_time_change"] = (
+        "+5 mins" if metrics["risk_level"] == "high" else "+1 mins")
 
     else:
         # Generic decision

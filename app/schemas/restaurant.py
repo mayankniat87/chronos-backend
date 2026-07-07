@@ -1,6 +1,9 @@
 from pydantic import BaseModel, ConfigDict, Field
 from typing import List, Optional, Any
-from datetime import date, datetime
+from datetime import date, datetime, timezone
+
+def utc_now():
+    return datetime.now(timezone.utc)
 
 # --- Common Config ---
 class SchemaBase(BaseModel):
@@ -120,12 +123,12 @@ class OrderBase(SchemaBase):
 
 class OrderCreate(OrderBase):
     id: Optional[int] = None
-    items: Optional[List[OrderItemBase]] = []
+    items: List[OrderItemBase] = Field(default_factory=list)
 
 class Order(OrderBase):
     id: int
     # Allow serialization of relationships if requested
-    order_items: List[OrderItem] = []
+    order_items: List[OrderItem] = Field(default_factory=list)
 
 
 # --- Expense ---
@@ -149,7 +152,7 @@ class DecisionLogBase(SchemaBase):
     inputs_json: Any
     chosen_option: str
     outcome_json: Optional[Any] = None
-    decided_at: datetime = Field(default_factory=datetime.utcnow)
+    decided_at: datetime = Field(default_factory=utc_now)
 
 class DecisionLogCreate(DecisionLogBase):
     id: Optional[int] = None
@@ -165,7 +168,7 @@ class SimulationRunBase(SchemaBase):
     scenarios_json: Any
     recommendation: str
     confidence: float
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(default_factory=utc_now)
 
 class SimulationRunCreate(SimulationRunBase):
     pass
@@ -187,7 +190,7 @@ class DecisionSimulationRequest(SchemaBase):
     restaurant_id: int
     question: str
     decision_type: str
-    params: dict = {}
+    params: dict = Field(default_factory=dict)
 
 class DecisionSimulationResponse(SchemaBase):
     restaurant_id: int

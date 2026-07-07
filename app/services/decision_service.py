@@ -6,7 +6,13 @@ from app.schemas.restaurant import DecisionSimulationResponse, ScenarioResponse
 from app.models.restaurant import SimulationRun
 import logging
 
+logger = logging.getLogger(__name__)
+
 def process_decision_simulation(restaurant_id: int, question: str, decision_type: str, params: dict, db: Session) -> DecisionSimulationResponse:
+    logger.info(
+    f"Running simulation for restaurant_id={restaurant_id}, decision_type={decision_type}"
+    )
+    
     try:
         # 1. Generate deterministic scenarios
         scenarios = generate_scenarios(restaurant_id, decision_type, params, db)
@@ -48,22 +54,34 @@ def process_decision_simulation(restaurant_id: int, question: str, decision_type
             )
             db.add(run_record)
             db.commit()
-        except Exception as e:
+            db.refresh(run_record)
+
+            logger.info(
+                f"Simulation saved successfully (id={run_record.id})"
+            )
+        except Exception:
             db.rollback()
-            logging.warning(f"Could not persist simulation log: {e}")
+            logger.exception(
+                "Could not persist simulation log."
+            )
             
         return response
-    except Exception as e:
-        logging.error(f"Error in process_decision_simulation: {e}")
+    except Exception:
+        logger.exception(
+            "Error while processing decision simulation."
+        )
         fallback = get_fallback_simulation(restaurant_id, db)
         if fallback:
             return fallback
-        raise e
+        raise 
 
 def get_fallback_simulation(restaurant_id: int, db: Session):
     run = db.query(SimulationRun).filter(SimulationRun.restaurant_id == restaurant_id).order_by(SimulationRun.created_at.desc()).first()
     if run:
         scenarios = [ScenarioResponse(**s) for s in run.scenarios_json]
+        logger.warning(
+            f"Loaded fallback simulation for restaurant {restaurant_id}"
+        )
         return DecisionSimulationResponse(
             restaurant_id=restaurant_id,
             question=run.question_text,
@@ -74,4 +92,8 @@ def get_fallback_simulation(restaurant_id: int, db: Session):
             causal_explanation="(Loaded from past fallback due to error in processing)",
             graph_payload={}
         )
+    logger.error(
+        f"No fallback simulation found for restaurant {restaurant_id}"
+    )
+
     return None

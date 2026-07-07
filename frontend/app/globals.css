@@ -1,0 +1,210 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #05070B;
+    --foreground: #F8FAFC;
+    
+    --card: rgba(13, 20, 35, 0.45);
+    --card-border: rgba(59, 130, 246, 0.08);
+    --card-glow: rgba(59, 130, 246, 0.15);
+
+    --primary: #3B82F6;
+    --primary-glow: rgba(59, 130, 246, 0.4);
+    
+    --secondary: #8B5CF6;
+    --secondary-glow: rgba(139, 92, 246, 0.4);
+
+    --accent: #06B6D4;
+    --accent-glow: rgba(6, 182, 212, 0.4);
+
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #05070B;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1E293B;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3B82F6;
+  }
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: rgba(10, 15, 30, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+  background: rgba(13, 20, 35, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(59, 130, 246, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.08);
+}
+
+.glass-card-purple {
+  background: rgba(15, 10, 35, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(139, 92, 246, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-purple:hover {
+  border-color: rgba(139, 92, 246, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.08);
+}
+
+.glass-card-cyan {
+  background: rgba(10, 20, 30, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(6, 182, 212, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card-cyan:hover {
+  border-color: rgba(6, 182, 212, 0.2);
+  box-shadow: 0 12px 40px 0 rgba(6, 182, 212, 0.08);
+}
+
+.glass-input {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #F8FAFC;
+  transition: all 0.2s ease-in-out;
+}
+
+.glass-input:focus {
+  border-color: #3B82F6;
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  outline: none;
+}
+
+/* Neon Glows and Gradients */
+.glow-text-blue {
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
+.glow-text-purple {
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+.glow-text-cyan {
+  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+.glow-bg-blue {
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+}
+
+.glow-bg-purple {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+}
+
+.glow-bg-cyan {
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+}
+
+/* Animated Border Container */
+.animated-border-box {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.animated-border-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 20%,
+    #3B82F6 40%,
+    #06B6D4 60%,
+    transparent 80%
+  );
+  animation: rotate-border 6s linear infinite;
+  z-index: 0;
+}
+
+.animated-border-content {
+  position: relative;
+  background: #090E1A;
+  border-radius: 11px;
+  z-index: 10;
+  margin: 1px;
+  height: calc(100% - 2px);
+}
+
+@keyframes rotate-border {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* React Flow custom style integration */
+.react-flow__renderer {
+  background: #05070B !important;
+}
+
+.react-flow__minimap {
+  background: rgba(13, 20, 35, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+}
+
+.react-flow__controls {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+}
+
+.react-flow__controls-button {
+  background: rgba(13, 20, 35, 0.85) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #F8FAFC !important;
+  fill: #F8FAFC !important;
+}
+
+.react-flow__controls-button:hover {
+  background: #1E293B !important;
+}
+
+.react-flow__edge-path {
+  stroke-width: 2px !important;
+}

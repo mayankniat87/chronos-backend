@@ -1,16 +1,20 @@
+import logging
 import networkx as nx
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import joinedload
 from app.models.restaurant import Restaurant, Supplier, InventoryItem, MenuItem, Customer, Order
+
+logger = logging.getLogger(__name__)
 
 def build_restaurant_graph(restaurant_id: int, db: Session):
     """
     Builds a NetworkX DiGraph and a React Flow JSON payload for a restaurant.
     """
     restaurant = db.query(Restaurant).filter(Restaurant.id == restaurant_id).first()
-    if not restaurant:
-        return None, None
 
+    if not restaurant:
+       logger.warning(f"Restaurant with ID    {restaurant_id} not found while building graph.")
+       return None, None
     G = nx.DiGraph()
     nodes = []
     edges = []
@@ -88,10 +92,15 @@ def build_restaurant_graph(restaurant_id: int, db: Session):
             add_edge(f"cust_{order.customer_id}", rev_id, "generates")
 
     react_flow_payload = {
-        "status": "success",
+       "status": "success",
         "restaurant_id": restaurant_id,
         "nodes": nodes,
         "edges": edges
     }
+
+    logger.info(
+        f"Graph generated successfully for restaurant {restaurant_id}. "
+        f"Nodes={len(nodes)}, Edges={len(edges)}"
+    )
 
     return react_flow_payload, G
