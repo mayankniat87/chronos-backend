@@ -76,10 +76,10 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           x: isMobile ? (mobileSidebarOpen ? 0 : -260) : 0,
         }}
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-        className="fixed left-0 top-0 bottom-0 z-40 flex flex-col glass-panel border-r border-slate-800 text-slate-200"
+        className="fixed left-0 top-0 bottom-0 z-40 flex flex-col glass-panel border-r border-edge text-strong"
       >
         {/* Sidebar Header Brand */}
-        <div className="flex h-16 items-center justify-between px-4 border-b border-slate-800/80">
+        <div className="flex h-16 items-center justify-between px-4 border-b border-edge/80">
           <Link href="/dashboard" className="flex items-center gap-3" onClick={handleNavClick}>
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-md shadow-blue-500/20">
               <TrendingUp className="h-5 w-5 text-white animate-pulse" />
@@ -97,7 +97,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
           {!collapsed && !isMobile && (
             <button
               onClick={() => setCollapsed(true)}
-              className="rounded-lg p-1.5 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="rounded-lg p-1.5 hover:bg-surface-2 text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Collapse sidebar menu"
             >
               <ChevronLeft className="h-4 w-4" />
@@ -117,7 +117,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
                   className={`relative flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-205 group focus-within:ring-1 focus-within:ring-blue-500/30 ${
                     isActive
                       ? 'bg-blue-600/10 border border-blue-500/30 text-blue-400 glow-bg-blue'
-                      : 'border border-transparent hover:bg-slate-800/50 text-slate-400 hover:text-slate-200'
+                      : 'border border-transparent hover:bg-surface-2/50 text-muted hover:text-strong'
                   }`}
                 >
                   {/* Active Indicator Bar */}
@@ -128,7 +128,7 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <Icon className={`h-5 w-5 flex-shrink-0 ${isActive ? 'text-blue-400' : 'text-slate-400 group-hover:text-slate-200'}`} />
+                  <Icon className={`h-5 w-5 flex-shrink-0 ${isActive ? 'text-blue-400' : 'text-muted group-hover:text-strong'}`} />
                   {(!collapsed || isMobile) && (
                     <motion.span
                       initial={{ opacity: 0 }}
@@ -146,10 +146,10 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
 
         {/* Expand button when collapsed */}
         {collapsed && !isMobile && (
-          <div className="flex justify-center py-4 border-t border-slate-800/60">
+          <div className="flex justify-center py-4 border-t border-edge/60">
             <button
               onClick={() => setCollapsed(false)}
-              className="rounded-lg p-1.5 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="rounded-lg p-1.5 hover:bg-surface-2 text-muted hover:text-foreground transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               aria-label="Expand sidebar menu"
             >
               <ChevronRight className="h-5 w-5" />
@@ -158,17 +158,17 @@ export default function Sidebar({ collapsed, setCollapsed }: SidebarProps) {
         )}
 
         {/* User profile / Logout segment */}
-        <div className="p-4 border-t border-slate-800/80 bg-slate-950/20">
+        <div className="p-4 border-t border-edge/80 bg-surface-deep/20">
           {(!collapsed || isMobile) && (
             <div className="mb-3 px-2">
-              <p className="text-xs text-slate-500 font-semibold tracking-wider uppercase">Active Operator</p>
-              <p className="text-sm font-medium text-slate-300 truncate">{user?.name || 'Chronos Guest'}</p>
-              <p className="text-xs text-slate-500 truncate">{user?.email || 'guest@chronos.ai'}</p>
+              <p className="text-xs text-faint font-semibold tracking-wider uppercase">Active Operator</p>
+              <p className="text-sm font-medium text-strong truncate">{user?.name || 'Chronos Guest'}</p>
+              <p className="text-xs text-faint truncate">{user?.email || 'guest@chronos.ai'}</p>
             </div>
           )}
           <button
             onClick={handleLogout}
-            className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl border border-transparent hover:bg-red-500/10 hover:border-red-500/20 text-slate-400 hover:text-red-400 transition-all duration-200 group focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/40"
+            className="flex w-full items-center gap-3 px-3 py-2.5 rounded-xl border border-transparent hover:bg-red-500/10 hover:border-red-500/20 text-muted hover:text-red-400 transition-all duration-200 group focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/40"
             aria-label="Logout session"
           >
             <LogOut className="h-5 w-5 flex-shrink-0 group-hover:rotate-12 transition-transform duration-200" />

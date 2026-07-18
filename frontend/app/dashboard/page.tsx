@@ -70,12 +70,12 @@ export default function DashboardPage() {
     return (
       <div className="p-6 text-center glass-card rounded-2xl border border-red-500/10 bg-red-500/5 max-w-lg mx-auto">
         <AlertCircle className="h-10 w-10 text-red-400 mx-auto mb-3" />
-        <h3 className="text-lg font-bold text-white mb-1">Failed to connect to Chronos backend</h3>
-        <p className="text-slate-400 text-xs mb-4">
+        <h3 className="text-lg font-bold text-foreground mb-1">Failed to connect to Chronos backend</h3>
+        <p className="text-muted text-xs mb-4">
           Please check the backend server health or toggle on Sandbox Demo mode in Settings.
         </p>
         <Link href="/settings">
-          <button className="px-4 py-2 text-xs font-semibold rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">
+          <button className="px-4 py-2 text-xs font-semibold rounded-lg bg-surface-2 hover:bg-surface-3 text-strong">
             Open Settings
           </button>
         </Link>
@@ -144,15 +144,15 @@ export default function DashboardPage() {
       {/* Upper overview header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold font-outfit text-white tracking-tight flex items-center gap-2.5">
+          <h1 className="text-3xl font-extrabold font-outfit text-foreground tracking-tight flex items-center gap-2.5">
             Operations Panel
           </h1>
-          <p className="text-slate-400 text-xs mt-1">
+          <p className="text-muted text-xs mt-1">
             Real-time explainable intelligence for <span className="text-blue-400 font-semibold">{selectedRestaurant?.name}</span>.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-slate-400 bg-slate-900/60 border border-slate-800 px-3 py-1.5 rounded-lg">
+        <div className="flex items-center gap-2 text-xs text-muted bg-surface/60 border border-edge px-3 py-1.5 rounded-lg">
           <Calendar className="h-3.5 w-3.5" />
           <span>Last Synchronized: Just Now</span>
         </div>
@@ -171,18 +171,18 @@ export default function DashboardPage() {
               className="glass-card p-5 rounded-2xl flex flex-col justify-between"
             >
               <div className="flex justify-between items-start">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{card.title}</span>
+                <span className="text-xs font-semibold text-muted uppercase tracking-wider">{card.title}</span>
                 <div className={`p-2 rounded-xl ${card.bg} border border-white/5`}>
                   <Icon className={`h-4.5 w-4.5 ${card.color}`} />
                 </div>
               </div>
               <div className="mt-4">
-                <span className="text-2xl font-bold font-outfit text-white tracking-tight">{card.value}</span>
+                <span className="text-2xl font-bold font-outfit text-foreground tracking-tight">{card.value}</span>
                 <div className="flex items-center gap-1.5 mt-1">
                   <span className={`text-[10px] font-bold ${card.change.startsWith('-') ? 'text-red-400' : 'text-emerald-400'}`}>
                     {card.change}
                   </span>
-                  <span className="text-[10px] text-slate-500">{card.desc}</span>
+                  <span className="text-[10px] text-faint">{card.desc}</span>
                 </div>
               </div>
             </motion.div>
@@ -197,8 +197,8 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 glass-card p-6 rounded-2xl flex flex-col">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-base font-bold font-outfit text-white">Revenue & Orders Weekly Telemetry</h3>
-              <p className="text-[11px] text-slate-500">Comparing active register deposits against order processing metrics</p>
+              <h3 className="text-base font-bold font-outfit text-foreground">Revenue & Orders Weekly Telemetry</h3>
+              <p className="text-[11px] text-faint">Comparing active register deposits against order processing metrics</p>
             </div>
             <div className="flex items-center gap-4 text-xs font-medium">
               <span className="flex items-center gap-1.5 text-blue-400">
@@ -223,17 +223,17 @@ export default function DashboardPage() {
                     <stop offset="95%" stopColor="#06B6D4" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.03)" vertical={false} />
-                <XAxis dataKey="name" stroke="#64748B" fontSize={11} tickLine={false} />
-                <YAxis stroke="#64748B" fontSize={11} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--edge)" strokeOpacity={0.35} vertical={false} />
+                <XAxis dataKey="name" stroke="var(--faint)" fontSize={11} tickLine={false} />
+                <YAxis stroke="var(--faint)" fontSize={11} tickLine={false} />
                 <Tooltip
                   contentStyle={{
-                    background: 'rgba(10, 15, 30, 0.95)',
-                    border: '1px solid rgba(255, 255, 255, 0.08)',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--edge)',
                     borderRadius: '12px',
                     fontSize: '11px'
                   }}
-                  itemStyle={{ color: '#F8FAFC' }}
+                  itemStyle={{ color: 'var(--foreground)' }}
                 />
                 <Area type="monotone" dataKey="Revenue" stroke="#3B82F6" strokeWidth={2.5} fillOpacity={1} fill="url(#colorRev)" />
                 <Area type="monotone" dataKey="Orders" stroke="#06B6D4" strokeWidth={2.5} fillOpacity={1} fill="url(#colorOrd)" />
@@ -246,8 +246,8 @@ export default function DashboardPage() {
         <div className="flex flex-col gap-6">
           <div className="glass-card p-6 rounded-2xl flex-1 flex flex-col justify-between">
             <div>
-              <h3 className="text-base font-bold font-outfit text-white mb-2">Simulate Decision</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-6">
+              <h3 className="text-base font-bold font-outfit text-foreground mb-2">Simulate Decision</h3>
+              <p className="text-xs text-muted leading-relaxed mb-6">
                 Project price increases, shift scheduler cuts, or supply logistics delays before committing them.
               </p>
             </div>
@@ -261,14 +261,14 @@ export default function DashboardPage() {
               </Link>
               
               <Link href="/upload">
-                <button className="w-full py-2.5 rounded-xl border border-slate-800 bg-slate-950/40 hover:bg-slate-800 text-slate-300 hover:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                <button className="w-full py-2.5 rounded-xl border border-edge bg-surface-deep/40 hover:bg-surface-2 text-strong hover:text-strong text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
                   <Upload className="h-3.5 w-3.5" />
                   <span>Ingest Files</span>
                 </button>
               </Link>
 
               <Link href="/graph">
-                <button className="w-full py-2.5 rounded-xl border border-slate-800 bg-slate-950/40 hover:bg-slate-800 text-slate-300 hover:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
+                <button className="w-full py-2.5 rounded-xl border border-edge bg-surface-deep/40 hover:bg-surface-2 text-strong hover:text-strong text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer">
                   <Network className="h-3.5 w-3.5" />
                   <span>Inspect Graph</span>
                 </button>
@@ -285,8 +285,8 @@ export default function DashboardPage() {
         <div className="lg:col-span-2 glass-card p-6 rounded-2xl">
           <div className="flex justify-between items-center mb-6">
             <div>
-              <h3 className="text-base font-bold font-outfit text-white">Recent Decisions Feed</h3>
-              <p className="text-[11px] text-slate-500">Outcome evaluations from implemented decision models</p>
+              <h3 className="text-base font-bold font-outfit text-foreground">Recent Decisions Feed</h3>
+              <p className="text-[11px] text-faint">Outcome evaluations from implemented decision models</p>
             </div>
             <Link href="/history">
               <span className="text-xs text-blue-400 hover:underline cursor-pointer flex items-center gap-1">
@@ -298,10 +298,10 @@ export default function DashboardPage() {
 
           <div className="space-y-4">
             {historyLoading ? (
-              <p className="text-xs text-slate-500">Loading history feed...</p>
+              <p className="text-xs text-faint">Loading history feed...</p>
             ) : history && history.length > 0 ? (
               history.slice(0, 3).map((item) => (
-                <div key={item.id} className="p-4 rounded-xl bg-slate-950/40 border border-slate-800/80 hover:border-slate-700 transition-all flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div key={item.id} className="p-4 rounded-xl bg-surface-deep/40 border border-edge/80 hover:border-edge-strong transition-all flex flex-col md:flex-row md:items-center justify-between gap-4">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${
@@ -311,12 +311,12 @@ export default function DashboardPage() {
                       }`}>
                         {item.decisionType}
                       </span>
-                      <span className="text-[10px] text-slate-500">
+                      <span className="text-[10px] text-faint">
                         {new Date(item.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
-                    <p className="text-sm font-semibold text-slate-200">{item.question}</p>
-                    <p className="text-xs text-slate-400 leading-normal">{item.simulatedImpact}</p>
+                    <p className="text-sm font-semibold text-strong">{item.question}</p>
+                    <p className="text-xs text-muted leading-normal">{item.simulatedImpact}</p>
                   </div>
                   
                   {item.status === 'implemented' && (
@@ -328,7 +328,7 @@ export default function DashboardPage() {
                 </div>
               ))
             ) : (
-              <p className="text-xs text-slate-500">No decisions simulated yet.</p>
+              <p className="text-xs text-faint">No decisions simulated yet.</p>
             )}
           </div>
         </div>
@@ -336,8 +336,8 @@ export default function DashboardPage() {
         {/* Right Side: Quick Health telemetry metrics */}
         <div className="glass-card p-6 rounded-2xl flex flex-col justify-between">
           <div>
-            <h3 className="text-base font-bold font-outfit text-white mb-1">Operational Diagnostics</h3>
-            <p className="text-[11px] text-slate-500 mb-6">Comparing performance indicators against baseline targets</p>
+            <h3 className="text-base font-bold font-outfit text-foreground mb-1">Operational Diagnostics</h3>
+            <p className="text-[11px] text-faint mb-6">Comparing performance indicators against baseline targets</p>
             
             <div className="space-y-5">
               {[
@@ -348,10 +348,10 @@ export default function DashboardPage() {
               ].map((metric, idx) => (
                 <div key={idx} className="space-y-2">
                   <div className="flex justify-between text-xs font-semibold">
-                    <span className="text-slate-400">{metric.label}</span>
-                    <span className="text-slate-200">{metric.val}</span>
+                    <span className="text-muted">{metric.label}</span>
+                    <span className="text-strong">{metric.val}</span>
                   </div>
-                  <div className="h-1.5 w-full bg-slate-950 rounded-full overflow-hidden">
+                  <div className="h-1.5 w-full bg-surface-deep rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full bg-gradient-to-r ${
                         metric.pct > 85 ? 'from-blue-500 to-cyan-400' :

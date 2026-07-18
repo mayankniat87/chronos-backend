@@ -124,8 +124,8 @@ export default function UploadPage() {
       
       {/* Top Header */}
       <div>
-        <h1 className="text-3xl font-extrabold font-outfit text-white tracking-tight">Data Ingestion Center</h1>
-        <p className="text-slate-400 text-xs mt-1">
+        <h1 className="text-3xl font-extrabold font-outfit text-foreground tracking-tight">Data Ingestion Center</h1>
+        <p className="text-muted text-xs mt-1">
           Drop restaurant transaction logs, inventories, and shift metrics here to rebuild node relationships.
         </p>
       </div>
@@ -147,7 +147,7 @@ export default function UploadPage() {
                 className={`border-2 border-dashed rounded-2xl p-10 text-center flex flex-col items-center justify-center cursor-pointer transition-all duration-200 min-h-64 ${
                   dragActive
                     ? 'border-blue-500 bg-blue-500/5'
-                    : 'border-slate-800 bg-slate-900/10 hover:border-slate-700 hover:bg-slate-900/30'
+                    : 'border-edge bg-surface/10 hover:border-edge-strong hover:bg-surface/30'
                 }`}
               >
                 <input
@@ -162,29 +162,29 @@ export default function UploadPage() {
                   <UploadCloud className="h-7 w-7" />
                 </div>
                 
-                <h3 className="text-base font-bold text-slate-200 font-outfit">Select CSV or Excel logs</h3>
-                <p className="text-xs text-slate-500 mt-1.5 max-w-sm leading-relaxed">
+                <h3 className="text-base font-bold text-strong font-outfit">Select CSV or Excel logs</h3>
+                <p className="text-xs text-faint mt-1.5 max-w-sm leading-relaxed">
                   Drag and drop local sheets or browse your files. Supported formats: .csv, .xls, .xlsx
                 </p>
               </div>
             ) : (
               /* Selected file state */
-              <div className="border border-slate-800 bg-slate-950/20 rounded-xl p-5 space-y-4">
+              <div className="border border-edge bg-surface-deep/20 rounded-xl p-5 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="p-3 rounded-lg bg-blue-500/10 text-blue-400 border border-blue-500/15">
                       <FileSpreadsheet className="h-6 w-6" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold text-slate-200 truncate max-w-xs">{file.name}</h4>
-                      <p className="text-xs text-slate-500">{(file.size / 1024).toFixed(1)} KB</p>
+                      <h4 className="text-sm font-bold text-strong truncate max-w-xs">{file.name}</h4>
+                      <p className="text-xs text-faint">{(file.size / 1024).toFixed(1)} KB</p>
                     </div>
                   </div>
 
                   {!uploading && (
                     <button
                       onClick={clearFile}
-                      className="p-2 rounded-lg hover:bg-red-500/10 text-slate-500 hover:text-red-400 border border-transparent hover:border-red-500/20 transition-colors"
+                      className="p-2 rounded-lg hover:bg-red-500/10 text-faint hover:text-red-400 border border-transparent hover:border-red-500/20 transition-colors"
                       aria-label="Remove file"
                     >
                       <Trash2 className="h-4.5 w-4.5" />
@@ -196,10 +196,10 @@ export default function UploadPage() {
                 {uploading && (
                   <div className="space-y-2">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span className="text-slate-400">Transmitting packets...</span>
+                      <span className="text-muted">Transmitting packets...</span>
                       <span className="text-blue-400">{progress}%</span>
                     </div>
-                    <div className="h-2 w-full bg-slate-950 rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-surface-deep rounded-full overflow-hidden">
                       <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-150" style={{ width: `${progress}%` }} />
                     </div>
                   </div>
@@ -241,34 +241,34 @@ export default function UploadPage() {
               >
                 <div className="flex items-center gap-2 text-emerald-400">
                   <CheckCircle2 className="h-5 w-5" />
-                  <h3 className="text-base font-bold font-outfit text-white">Validation Success</h3>
+                  <h3 className="text-base font-bold font-outfit text-foreground">Validation Success</h3>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-950/40 border border-slate-800">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 rounded-xl bg-surface-deep/40 border border-edge">
                   <div>
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Rows Decoded</span>
-                    <span className="text-base font-bold text-slate-200">{response.rowCount.toLocaleString()}</span>
+                    <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Rows Decoded</span>
+                    <span className="text-base font-bold text-strong">{response.rowCount.toLocaleString()}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Columns Detected</span>
-                    <span className="text-base font-bold text-slate-200">{response.columnsDetected.length}</span>
+                    <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Columns Detected</span>
+                    <span className="text-base font-bold text-strong">{response.columnsDetected.length}</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Errors Blocked</span>
+                    <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Errors Blocked</span>
                     <span className="text-base font-bold text-emerald-400">0</span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Sync Status</span>
+                    <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Sync Status</span>
                     <span className="text-base font-bold text-blue-400">Pending Merge</span>
                   </div>
                 </div>
 
                 {/* Detected columns previews */}
                 <div>
-                  <h4 className="text-xs font-bold text-slate-400 mb-2 uppercase tracking-wide">Headers Detected</h4>
+                  <h4 className="text-xs font-bold text-muted mb-2 uppercase tracking-wide">Headers Detected</h4>
                   <div className="flex flex-wrap gap-1.5">
                     {response.columnsDetected.map((col, idx) => (
-                      <span key={idx} className="px-2.5 py-1 text-xs rounded-lg border border-slate-800 bg-slate-900/60 text-slate-300 font-mono">
+                      <span key={idx} className="px-2.5 py-1 text-xs rounded-lg border border-edge bg-surface/60 text-strong font-mono">
                         {col}
                       </span>
                     ))}
@@ -287,7 +287,7 @@ export default function UploadPage() {
               >
                 <div className="flex items-center gap-2 text-red-400">
                   <AlertTriangle className="h-5 w-5" />
-                  <h3 className="text-base font-bold font-outfit text-white">Validation Summary</h3>
+                  <h3 className="text-base font-bold font-outfit text-foreground">Validation Summary</h3>
                 </div>
 
                 <ul className="space-y-2 max-h-48 overflow-y-auto pr-2">
@@ -305,21 +305,21 @@ export default function UploadPage() {
 
         {/* Upload History side ledger */}
         <div className="glass-card p-6 rounded-2xl space-y-6">
-          <div className="flex items-center gap-2 border-b border-slate-800/80 pb-4">
-            <History className="h-4.5 w-4.5 text-slate-400" />
-            <h3 className="text-sm font-bold font-outfit text-white uppercase tracking-wider">Ingestion Log</h3>
+          <div className="flex items-center gap-2 border-b border-edge/80 pb-4">
+            <History className="h-4.5 w-4.5 text-muted" />
+            <h3 className="text-sm font-bold font-outfit text-foreground uppercase tracking-wider">Ingestion Log</h3>
           </div>
 
           <div className="space-y-4 max-h-[350px] overflow-y-auto pr-1">
             {uploadHistory.map((hist) => (
-              <div key={hist.fileId} className="p-3 rounded-lg border border-slate-800/80 bg-slate-900/30 text-xs space-y-2">
+              <div key={hist.fileId} className="p-3 rounded-lg border border-edge/80 bg-surface/30 text-xs space-y-2">
                 <div className="flex justify-between items-start gap-2">
-                  <span className="font-bold text-slate-200 truncate max-w-[150px]">{hist.fileName}</span>
-                  <span className="text-[10px] text-slate-500 whitespace-nowrap">
+                  <span className="font-bold text-strong truncate max-w-[150px]">{hist.fileName}</span>
+                  <span className="text-[10px] text-faint whitespace-nowrap">
                     {new Date(hist.uploadedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-muted">
                   <span>{hist.rowCount} records</span>
                   <span className="text-emerald-400 font-medium">Synced</span>
                 </div>

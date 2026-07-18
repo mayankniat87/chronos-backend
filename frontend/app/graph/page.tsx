@@ -121,7 +121,7 @@ export default function GraphPage() {
       label: edge.label,
       animated: edge.animated,
       style: {
-        stroke: edge.animated ? '#3B82F6' : '#475569',
+        stroke: edge.animated ? 'var(--primary)' : 'var(--edge-strong)',
       },
     }));
 
@@ -167,10 +167,10 @@ export default function GraphPage() {
     <div className="flex flex-col h-[calc(100vh-130px)] space-y-4 font-sans">
       
       {/* Search and filter controls toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 bg-slate-950/40 p-4 rounded-2xl border border-slate-800/80">
+      <div className="flex flex-wrap items-center justify-between gap-4 bg-surface-deep/40 p-4 rounded-2xl border border-edge/80">
         <div className="flex flex-wrap items-center gap-3">
           <div className="relative">
-            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500">
+            <span className="absolute inset-y-0 left-0 pl-3 flex items-center text-faint">
               <Search className="h-4 w-4" />
             </span>
             <input
@@ -178,7 +178,7 @@ export default function GraphPage() {
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
               placeholder="Search graph nodes..."
-              className="pl-9 pr-4 py-2 w-56 text-xs rounded-xl glass-input text-slate-200"
+              className="pl-9 pr-4 py-2 w-56 text-xs rounded-xl glass-input text-strong"
             />
           </div>
           
@@ -192,8 +192,8 @@ export default function GraphPage() {
                   onClick={() => toggleTypeFilter(cat.key)}
                   className={`px-2.5 py-1.5 rounded-lg border text-[10px] font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${
                     active
-                      ? 'bg-slate-850 border-slate-700 text-slate-200'
-                      : 'border-transparent text-slate-500 hover:text-slate-400'
+                      ? 'bg-surface-2 border-edge-strong text-strong'
+                      : 'border-transparent text-faint hover:text-muted'
                   }`}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full ${cat.color}`} />
@@ -207,7 +207,7 @@ export default function GraphPage() {
         <button
           onClick={() => refetch()}
           disabled={isFetching}
-          className="p-2.5 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
+          className="p-2.5 rounded-xl border border-edge bg-surface/40 hover:bg-surface-2 text-muted hover:text-foreground transition-colors cursor-pointer"
           aria-label="Refresh operational metrics"
         >
           <RefreshCw className={`h-4.5 w-4.5 ${isFetching ? 'animate-spin' : ''}`} />
@@ -218,9 +218,9 @@ export default function GraphPage() {
       <div className="flex-1 flex gap-6 relative min-h-0">
         
         {/* React Flow canvas */}
-        <div className="flex-1 glass-card rounded-2xl border border-slate-800 overflow-hidden relative">
+        <div className="flex-1 glass-card rounded-2xl border border-edge overflow-hidden relative">
           {isLoading ? (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-950/60 z-10">
+            <div className="absolute inset-0 flex items-center justify-center bg-surface-deep/60 z-10">
               <div className="flex flex-col items-center gap-3">
                 <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
                 <p className="text-xs font-semibold text-blue-400">Loading graph matrix...</p>
@@ -238,7 +238,7 @@ export default function GraphPage() {
               fitView
               attributionPosition="bottom-right"
             >
-              <Background color="#1e293b" gap={24} size={1} />
+              <Background color="var(--edge)" gap={24} size={1} />
               <Controls />
               <MiniMap nodeStrokeWidth={3} zoomable pannable />
             </ReactFlow>
@@ -253,33 +253,33 @@ export default function GraphPage() {
               animate={{ opacity: 1, x: 0, width: 320 }}
               exit={{ opacity: 0, x: 50, width: 0 }}
               transition={{ type: 'spring', stiffness: 260, damping: 25 }}
-              className="glass-panel w-80 rounded-2xl border border-slate-800 p-6 flex flex-col justify-between overflow-y-auto"
+              className="glass-panel w-80 rounded-2xl border border-edge p-6 flex flex-col justify-between overflow-y-auto"
             >
               <div className="space-y-6">
-                <div className="flex items-center gap-2.5 border-b border-slate-800/80 pb-4">
+                <div className="flex items-center gap-2.5 border-b border-edge/80 pb-4">
                   <Info className="h-4.5 w-4.5 text-blue-400" />
-                  <h3 className="text-sm font-bold font-outfit text-white uppercase tracking-wider">Node Inspector</h3>
+                  <h3 className="text-sm font-bold font-outfit text-foreground uppercase tracking-wider">Node Inspector</h3>
                 </div>
 
                 <div>
-                  <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block">{activeNodeDetails.type}</span>
-                  <h2 className="text-lg font-bold font-outfit text-white mt-1 leading-tight">{activeNodeDetails.label}</h2>
-                  <p className="text-xs text-slate-400 mt-2 leading-relaxed">{activeNodeDetails.details.description || 'No custom description defined.'}</p>
+                  <span className="text-[10px] text-faint font-bold uppercase tracking-widest block">{activeNodeDetails.type}</span>
+                  <h2 className="text-lg font-bold font-outfit text-foreground mt-1 leading-tight">{activeNodeDetails.label}</h2>
+                  <p className="text-xs text-muted mt-2 leading-relaxed">{activeNodeDetails.details.description || 'No custom description defined.'}</p>
                 </div>
 
                 {/* Metrics list */}
-                <div className="space-y-3.5 pt-4 border-t border-slate-900">
-                  <h4 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Active Metrics</h4>
+                <div className="space-y-3.5 pt-4 border-t border-edge">
+                  <h4 className="text-[10px] font-bold text-faint uppercase tracking-widest">Active Metrics</h4>
                   {Object.entries(activeNodeDetails.details.metrics).map(([key, val]) => (
                     <div key={key} className="flex justify-between items-center text-xs py-1">
-                      <span className="text-slate-400 font-semibold">{key}</span>
-                      <span className="text-slate-200 font-mono font-medium">{String(val)}</span>
+                      <span className="text-muted font-semibold">{key}</span>
+                      <span className="text-strong font-mono font-medium">{String(val)}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-6 border-t border-slate-900 mt-6 text-[10px] text-slate-500 font-medium">
+              <div className="pt-6 border-t border-edge mt-6 text-[10px] text-faint font-medium">
                 <p className="flex items-center gap-1.5">
                   <FolderLock className="h-3.5 w-3.5" />
                   <span>State locked for simulation output comparisons.</span>

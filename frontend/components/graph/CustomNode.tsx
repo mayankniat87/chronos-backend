@@ -32,7 +32,7 @@ export default function CustomNode({ data, selected }: NodeProps) {
     if (selected) return 'border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.4)]';
     if (status === 'critical') return 'border-red-500 shadow-[0_0_12px_rgba(239,68,68,0.3)]';
     if (status === 'warning') return 'border-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.3)]';
-    return 'border-slate-800/80 hover:border-slate-700';
+    return 'border-edge/80 hover:border-edge-strong';
   };
 
   const getBadgeColor = () => {
@@ -49,19 +49,19 @@ export default function CustomNode({ data, selected }: NodeProps) {
     <div className={`glass-card p-3.5 rounded-xl border flex items-center gap-3 min-w-[170px] ${getBorderColor()}`}>
       
       {/* Node input Handle */}
-      <Handle type="target" position={Position.Top} className="!bg-slate-700 !w-2 !h-2" />
+      <Handle type="target" position={Position.Top} className="!bg-surface-3 !w-2 !h-2" />
       
       <div className={`p-2 rounded-lg ${getBadgeColor()} border flex items-center justify-center`}>
         <Icon className="h-4.5 w-4.5 flex-shrink-0" />
       </div>
 
       <div className="flex-1 min-w-0">
-        <span className="text-[9px] text-slate-500 uppercase tracking-widest block font-bold">{type}</span>
-        <span className="text-xs font-bold text-slate-200 truncate block mt-0.5">{data.label}</span>
+        <span className="text-[9px] text-faint uppercase tracking-widest block font-bold">{type}</span>
+        <span className="text-xs font-bold text-strong truncate block mt-0.5">{data.label}</span>
       </div>
 
       {/* Node output Handle */}
-      <Handle type="source" position={Position.Bottom} className="!bg-slate-700 !w-2 !h-2" />
+      <Handle type="source" position={Position.Bottom} className="!bg-surface-3 !w-2 !h-2" />
     </div>
   );
 }

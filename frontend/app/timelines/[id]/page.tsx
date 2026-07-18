@@ -136,10 +136,10 @@ export default function TimelineResultsPage() {
   if (loading || !localSim) {
     return (
       <div className="space-y-6">
-        <div className="h-10 w-48 bg-slate-900 rounded animate-pulse" />
+        <div className="h-10 w-48 bg-surface rounded animate-pulse" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-[450px] bg-slate-900 rounded-2xl animate-pulse" />
+            <div key={i} className="h-[450px] bg-surface rounded-2xl animate-pulse" />
           ))}
         </div>
       </div>
@@ -150,26 +150,26 @@ export default function TimelineResultsPage() {
     const isExpanded = expandedSection === scenario.title;
     return (
       <div className="space-y-5">
-        <div className="flex justify-between items-center bg-slate-950/40 p-4 rounded-xl border border-slate-800/80">
+        <div className="flex justify-between items-center bg-surface-deep/40 p-4 rounded-xl border border-edge/80">
           <div>
-            <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Decision Advice</span>
-            <p className="text-xs text-slate-300 font-medium mt-0.5 leading-relaxed">{scenario.recommendation}</p>
+            <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Decision Advice</span>
+            <p className="text-xs text-strong font-medium mt-0.5 leading-relaxed">{scenario.recommendation}</p>
           </div>
         </div>
 
         {/* Diagnostic parameters grid */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="p-3 bg-slate-950/20 border border-slate-850 rounded-lg">
-            <span className="text-[10px] text-slate-500 font-bold block mb-1">EVIDENCE</span>
-            <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-400">
+          <div className="p-3 bg-surface-deep/20 border border-edge rounded-lg">
+            <span className="text-[10px] text-faint font-bold block mb-1">EVIDENCE</span>
+            <ul className="list-disc pl-4 space-y-1 text-[11px] text-muted">
               {scenario.evidence.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}
             </ul>
           </div>
-          <div className="p-3 bg-slate-950/20 border border-slate-850 rounded-lg">
-            <span className="text-[10px] text-slate-500 font-bold block mb-1">ASSUMPTIONS</span>
-            <ul className="list-disc pl-4 space-y-1 text-[11px] text-slate-400">
+          <div className="p-3 bg-surface-deep/20 border border-edge rounded-lg">
+            <span className="text-[10px] text-faint font-bold block mb-1">ASSUMPTIONS</span>
+            <ul className="list-disc pl-4 space-y-1 text-[11px] text-muted">
               {scenario.assumptions.map((item, idx) => (
                 <li key={idx}>{item}</li>
               ))}
@@ -181,7 +181,7 @@ export default function TimelineResultsPage() {
         <div>
           <button
             onClick={() => setExpandedSection(isExpanded ? null : scenario.title)}
-            className="flex items-center justify-between w-full py-2.5 px-3 rounded-lg border border-slate-800/60 bg-slate-900/10 hover:bg-slate-900/30 text-xs font-semibold text-slate-400 transition-colors"
+            className="flex items-center justify-between w-full py-2.5 px-3 rounded-lg border border-edge/60 bg-surface/10 hover:bg-surface/30 text-xs font-semibold text-muted transition-colors"
           >
             <span className="flex items-center gap-1.5"><Info className="h-3.5 w-3.5" /> Model Limitations</span>
             <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} />
@@ -195,11 +195,11 @@ export default function TimelineResultsPage() {
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <div className="p-3 mt-2 rounded-lg border border-slate-800 bg-slate-950/40 text-[11px] text-slate-400 space-y-1">
+                <div className="p-3 mt-2 rounded-lg border border-edge bg-surface-deep/40 text-[11px] text-muted space-y-1">
                   {scenario.limitations.map((lim, idx) => (
                     <p key={idx}>• {lim}</p>
                   ))}
-                  <p className="mt-2 text-slate-500 font-mono text-[10px]">{scenario.details}</p>
+                  <p className="mt-2 text-faint font-mono text-[10px]">{scenario.details}</p>
                 </div>
               </motion.div>
             )}
@@ -225,17 +225,17 @@ export default function TimelineResultsPage() {
     <div className="space-y-8 font-sans">
       
       {/* Upper Navigation Row */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-900 pb-5">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-edge pb-5">
         <div className="flex items-center gap-3">
           <Link href="/ask">
-            <button className="p-2 rounded-lg border border-slate-800 hover:bg-slate-800/80 text-slate-400 hover:text-white transition-colors cursor-pointer">
+            <button className="p-2 rounded-lg border border-edge hover:bg-surface-2/80 text-muted hover:text-foreground transition-colors cursor-pointer">
               <ArrowLeft className="h-4 w-4" />
             </button>
           </Link>
           <div>
-            <h1 className="text-2xl font-extrabold font-outfit text-white tracking-tight">Timeline Projections</h1>
-            <p className="text-slate-500 text-xs mt-0.5">
-              Simulation ID: <span className="font-mono text-slate-400">{localSim.id}</span> • {localSim.horizonMonths} Month Outlook
+            <h1 className="text-2xl font-extrabold font-outfit text-foreground tracking-tight">Timeline Projections</h1>
+            <p className="text-faint text-xs mt-0.5">
+              Simulation ID: <span className="font-mono text-muted">{localSim.id}</span> • {localSim.horizonMonths} Month Outlook
             </p>
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function TimelineResultsPage() {
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all cursor-pointer ${
               comparisonMode
                 ? 'bg-blue-600/10 border-blue-500/30 text-blue-400'
-                : 'border-slate-800 bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-slate-200'
+                : 'border-edge bg-surface/40 hover:bg-surface-2 text-muted hover:text-strong'
             }`}
           >
             <Layers className="h-4 w-4" />
@@ -256,7 +256,7 @@ export default function TimelineResultsPage() {
 
           <button
             onClick={handleDownload}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/40 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-semibold transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-edge bg-surface/40 hover:bg-surface-2 text-muted hover:text-strong text-xs font-semibold transition-all cursor-pointer"
           >
             <Download className="h-4 w-4" />
             <span>Export Config</span>
@@ -295,26 +295,26 @@ export default function TimelineResultsPage() {
                   <span className={`px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-lg border ${getMetricBadge(scenario.title)}`}>
                     {scenario.title} Scenario
                   </span>
-                  <div className="flex items-center gap-1 text-[10px] text-slate-500 font-mono">
+                  <div className="flex items-center gap-1 text-[10px] text-faint font-mono">
                     <Activity className="h-3 w-3" />
                     <span>Confidence: {scenario.confidenceScore}%</span>
                   </div>
                 </div>
 
                 {/* Key parameters metrics summary */}
-                <div className="grid grid-cols-3 gap-2 py-4 border-y border-slate-900">
+                <div className="grid grid-cols-3 gap-2 py-4 border-y border-edge">
                   <div className="text-center">
-                    <span className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold block">Revenue</span>
+                    <span className="text-[9px] text-faint uppercase tracking-widest font-semibold block">Revenue</span>
                     <span className={`text-sm font-bold block mt-1 ${scenario.revenueChangePct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {scenario.revenueChangePct >= 0 ? `+${scenario.revenueChangePct}` : scenario.revenueChangePct}%
                     </span>
                   </div>
                   <div className="text-center">
-                    <span className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold block">Net profit</span>
-                    <span className="text-sm font-bold text-slate-200 block mt-1">${scenario.profit.toLocaleString()}</span>
+                    <span className="text-[9px] text-faint uppercase tracking-widest font-semibold block">Net profit</span>
+                    <span className="text-sm font-bold text-strong block mt-1">${scenario.profit.toLocaleString()}</span>
                   </div>
                   <div className="text-center">
-                    <span className="text-[9px] text-slate-500 uppercase tracking-widest font-semibold block">Risk Score</span>
+                    <span className="text-[9px] text-faint uppercase tracking-widest font-semibold block">Risk Score</span>
                     <span className={`text-sm font-bold block mt-1 ${scenario.riskScore > 60 ? 'text-red-400' : 'text-blue-400'}`}>
                       {scenario.riskScore}/100
                     </span>
@@ -331,7 +331,7 @@ export default function TimelineResultsPage() {
         /* Normal Mode: Tabbed Layout */
         <div className="space-y-6">
           {/* Navigation tabs */}
-          <div className="flex gap-2 p-1.5 rounded-xl border border-slate-800 bg-slate-900/40 max-w-md">
+          <div className="flex gap-2 p-1.5 rounded-xl border border-edge bg-surface/40 max-w-md">
             {(['optimistic', 'likely', 'pessimistic'] as const).map((key) => {
               const scenario = localSim.scenarios[key];
               const isActive = activeScenario === key;
@@ -341,8 +341,8 @@ export default function TimelineResultsPage() {
                   onClick={() => setActiveScenario(key)}
                   className={`flex-1 py-2 text-xs font-semibold rounded-lg transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-slate-800 border border-slate-700 text-slate-200'
-                      : 'text-slate-500 hover:text-slate-350'
+                      ? 'bg-surface-2 border border-edge-strong text-strong'
+                      : 'text-faint hover:text-muted'
                   }`}
                 >
                   {scenario.title}
@@ -362,28 +362,28 @@ export default function TimelineResultsPage() {
               <span className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-lg border ${getMetricBadge(localSim.scenarios[activeScenario].title)}`}>
                 {localSim.scenarios[activeScenario].title} Outlook
               </span>
-              <span className="text-xs text-slate-500">Confidence Accuracy: {localSim.scenarios[activeScenario].confidenceScore}%</span>
+              <span className="text-xs text-faint">Confidence Accuracy: {localSim.scenarios[activeScenario].confidenceScore}%</span>
             </div>
 
             {/* Diagnostic stats metrics */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-950/40 border border-slate-850">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-surface-deep/40 border border-edge">
               <div>
-                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Net Revenue Delta</span>
+                <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Net Revenue Delta</span>
                 <span className={`text-lg font-bold ${localSim.scenarios[activeScenario].revenueChangePct >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                   {localSim.scenarios[activeScenario].revenueChangePct >= 0 ? `+${localSim.scenarios[activeScenario].revenueChangePct}` : localSim.scenarios[activeScenario].revenueChangePct}%
                 </span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Operational Profit</span>
-                <span className="text-lg font-bold text-slate-200">${localSim.scenarios[activeScenario].profit.toLocaleString()}</span>
+                <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Operational Profit</span>
+                <span className="text-lg font-bold text-strong">${localSim.scenarios[activeScenario].profit.toLocaleString()}</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Inventory Health</span>
-                <span className="text-lg font-bold text-slate-200">{localSim.scenarios[activeScenario].inventoryHealthPct}%</span>
+                <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Inventory Health</span>
+                <span className="text-lg font-bold text-strong">{localSim.scenarios[activeScenario].inventoryHealthPct}%</span>
               </div>
               <div>
-                <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider block">Staff Load Score</span>
-                <span className="text-lg font-bold text-slate-200">{localSim.scenarios[activeScenario].staffUtilizationPct}%</span>
+                <span className="text-[10px] text-faint font-semibold uppercase tracking-wider block">Staff Load Score</span>
+                <span className="text-lg font-bold text-strong">{localSim.scenarios[activeScenario].staffUtilizationPct}%</span>
               </div>
             </div>
 

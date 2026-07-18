@@ -9,6 +9,7 @@ from fastapi import APIRouter, Depends, UploadFile, File, Query, HTTPException, 
 from sqlalchemy.orm import Session
 
 from app.core.database import get_db
+from app.services.menu_ai.context_builder import invalidate_menu_context
 from app.models.restaurant import (
     Restaurant, MenuItem, Supplier, InventoryItem,
     Staff, Customer, Order, OrderItem, Expense, DecisionLog
@@ -247,6 +248,7 @@ async def upload_file(
                     else:
                         summary[key] = 0
             
+            invalidate_menu_context(restaurant_id)
             return {
                 "status": "success",
                 "message": "Excel workbook processed successfully",
@@ -320,6 +322,7 @@ async def upload_file(
                 restaurant_id_override=restaurant_id
             )
             
+            invalidate_menu_context(restaurant_id)
             return {
                 "status": "success",
                 "message": f"CSV file for table '{matched_model[0]}' processed successfully",

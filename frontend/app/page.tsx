@@ -66,7 +66,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <div className="relative min-h-screen bg-[#05070B] overflow-hidden flex flex-col font-sans">
+    <div className="relative min-h-screen bg-background overflow-hidden flex flex-col font-sans">
       
       {/* Dynamic Background Light Pools */}
       <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
@@ -79,12 +79,12 @@ export default function LandingPage() {
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-tr from-blue-600 to-cyan-500 shadow-lg shadow-blue-500/20">
             <TrendingUp className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-wider font-outfit text-white">CHRONOS</span>
+          <span className="text-xl font-bold tracking-wider font-outfit text-foreground">CHRONOS</span>
         </div>
 
         <div>
           <Link href="/login">
-            <span className="text-sm font-semibold hover:text-blue-400 transition-colors cursor-pointer mr-6 text-slate-400">
+            <span className="text-sm font-semibold hover:text-blue-400 transition-colors cursor-pointer mr-6 text-muted">
               Sign In
             </span>
           </Link>
@@ -112,7 +112,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-outfit text-white max-w-4xl leading-[1.1] mb-6"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-outfit text-foreground max-w-4xl leading-[1.1] mb-6"
         >
           See the Future Before You Make{' '}
           <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent glow-text-blue">
@@ -124,7 +124,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-slate-400 text-base sm:text-xl max-w-2xl leading-relaxed mb-10"
+          className="text-muted text-base sm:text-xl max-w-2xl leading-relaxed mb-10"
         >
           Chronos maps your operational data into a self-healing knowledge graph, running real-time simulations to project changes in revenue, supply, and staff.
         </motion.p>
@@ -142,7 +142,7 @@ export default function LandingPage() {
             </button>
           </Link>
           <Link href="/login">
-            <button className="flex items-center gap-2 px-8 py-3.5 text-sm font-semibold rounded-xl border border-slate-800 bg-slate-900/50 hover:bg-slate-800 text-slate-300 hover:text-white transition-all cursor-pointer">
+            <button className="flex items-center gap-2 px-8 py-3.5 text-sm font-semibold rounded-xl border border-edge bg-surface/50 hover:bg-surface-2 text-strong hover:text-foreground transition-all cursor-pointer">
               <Play className="h-4 w-4" />
               <span>Watch Demo</span>
             </button>
@@ -151,11 +151,11 @@ export default function LandingPage() {
       </section>
 
       {/* Features Showcase */}
-      <section className="border-t border-slate-900 bg-slate-950/30 py-24 px-6 md:px-12 relative z-10">
+      <section className="border-t border-edge bg-surface-deep/30 py-24 px-6 md:px-12 relative z-10">
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold font-outfit text-white mb-4">Chronos Feature Architecture</h2>
-            <p className="text-slate-400 text-sm max-w-lg mx-auto">Enterprise-grade modules designed to replace predictive uncertainty with explainable data models.</p>
+            <h2 className="text-3xl font-bold font-outfit text-foreground mb-4">Chronos Feature Architecture</h2>
+            <p className="text-muted text-sm max-w-lg mx-auto">Enterprise-grade modules designed to replace predictive uncertainty with explainable data models.</p>
           </div>
 
           <motion.div
@@ -173,12 +173,12 @@ export default function LandingPage() {
                   variants={itemVariants}
                   className={`glass-card p-6 rounded-2xl flex gap-5 border border-white/5 ${feature.border}`}
                 >
-                  <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-xl bg-slate-900/80 border border-slate-800">
+                  <div className="flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-xl bg-surface/80 border border-edge">
                     <Icon className={`h-6 w-6 ${feature.color}`} />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold font-outfit text-slate-200 mb-2">{feature.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{feature.desc}</p>
+                    <h3 className="text-lg font-bold font-outfit text-strong mb-2">{feature.title}</h3>
+                    <p className="text-muted text-sm leading-relaxed">{feature.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -188,11 +188,11 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-24 px-6 md:px-12 relative z-10 bg-[#05070B]">
+      <section className="py-24 px-6 md:px-12 relative z-10 bg-background">
         <div className="max-w-6xl mx-auto w-full">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold font-outfit text-white mb-4 font-semibold">How It Works</h2>
-            <p className="text-slate-400 text-sm max-w-lg mx-auto">Four simple steps to forecast operations with explainable confidence.</p>
+            <h2 className="text-3xl font-bold font-outfit text-foreground mb-4 font-semibold">How It Works</h2>
+            <p className="text-muted text-sm max-w-lg mx-auto">Four simple steps to forecast operations with explainable confidence.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
@@ -205,11 +205,11 @@ export default function LandingPage() {
               { num: '03', title: 'See Future', desc: 'Analyze three timeline variants detailing margins, stock levels, and staff ratios.' },
               { num: '04', title: 'Take Action', desc: 'Lock in simulated actions with confidence and track outcome metrics.' },
             ].map((step, idx) => (
-              <div key={idx} className="relative z-10 glass-card p-6 rounded-xl text-left border border-white/5 bg-slate-950/20 flex flex-col justify-between h-48">
+              <div key={idx} className="relative z-10 glass-card p-6 rounded-xl text-left border border-white/5 bg-surface-deep/20 flex flex-col justify-between h-48">
                 <span className="text-2xl font-black font-outfit bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">{step.num}</span>
                 <div>
-                  <h4 className="font-bold text-slate-200 mb-1.5 text-base">{step.title}</h4>
-                  <p className="text-slate-400 text-xs leading-relaxed">{step.desc}</p>
+                  <h4 className="font-bold text-strong mb-1.5 text-base">{step.title}</h4>
+                  <p className="text-muted text-xs leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
@@ -218,7 +218,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto border-t border-slate-900/60 py-8 px-6 text-center text-slate-500 text-xs">
+      <footer className="mt-auto border-t border-edge/60 py-8 px-6 text-center text-faint text-xs">
         <p>© {new Date().getFullYear()} Project Chronos. All rights reserved. Built for restaurant decision operations.</p>
       </footer>
     </div>

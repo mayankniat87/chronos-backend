@@ -1,20 +1,110 @@
 @import "tailwindcss";
 
+/* Tailwind v4: make `dark:` utilities follow the .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Register semantic tokens as Tailwind colors (bg-surface, text-muted, ...) */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-strong: var(--strong);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-surface-deep: var(--surface-deep);
+  --color-edge: var(--edge);
+  --color-edge-strong: var(--edge-strong);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+}
+
 @layer base {
+  /* ---------- Light theme (default) ---------- */
   :root {
+    color-scheme: light;
+
+    --background: #F4F6FB;
+    --foreground: #0B1220;
+    --strong: #1E293B;      /* prominent secondary text */
+    --muted: #475569;       /* muted text */
+    --faint: #64748B;       /* faint text / labels */
+
+    --surface: #FFFFFF;     /* panels, dropdowns */
+    --surface-2: #E9EEF6;   /* hover fills */
+    --surface-3: #DCE4F0;
+    --surface-deep: #EEF2F9;
+
+    --edge: #D9E1EC;        /* default borders */
+    --edge-strong: #B9C5D8;
+
+    --card: rgba(255, 255, 255, 0.72);
+    --card-border: rgba(59, 130, 246, 0.14);
+    --card-glow: rgba(59, 130, 246, 0.10);
+
+    --glass-panel-bg: rgba(255, 255, 255, 0.78);
+    --glass-border: rgba(15, 23, 42, 0.08);
+    --glass-input-bg: rgba(255, 255, 255, 0.85);
+    --glass-shadow: rgba(15, 23, 42, 0.08);
+
+    --border-box-bg: #FFFFFF;
+
+    --scrollbar-track: #E9EEF6;
+    --scrollbar-thumb: #C3CEDD;
+
+    --primary: #2563EB;
+    --primary-glow: rgba(37, 99, 235, 0.35);
+    --secondary: #7C3AED;
+    --secondary-glow: rgba(124, 58, 237, 0.35);
+    --accent: #0891B2;
+    --accent-glow: rgba(8, 145, 178, 0.35);
+
+    --success: #059669;
+    --warning: #D97706;
+    --danger: #DC2626;
+  }
+
+  /* ---------- Dark theme ---------- */
+  .dark {
+    color-scheme: dark;
+
     --background: #05070B;
     --foreground: #F8FAFC;
-    
+    --strong: #CBD5E1;
+    --muted: #94A3B8;
+    --faint: #64748B;
+
+    --surface: #0F172A;
+    --surface-2: #1E293B;
+    --surface-3: #334155;
+    --surface-deep: #020617;
+
+    --edge: #1E293B;
+    --edge-strong: #334155;
+
     --card: rgba(13, 20, 35, 0.45);
     --card-border: rgba(59, 130, 246, 0.08);
     --card-glow: rgba(59, 130, 246, 0.15);
 
+    --glass-panel-bg: rgba(10, 15, 30, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --glass-input-bg: rgba(15, 23, 42, 0.6);
+    --glass-shadow: rgba(0, 0, 0, 0.37);
+
+    --border-box-bg: #090E1A;
+
+    --scrollbar-track: #05070B;
+    --scrollbar-thumb: #1E293B;
+
     --primary: #3B82F6;
     --primary-glow: rgba(59, 130, 246, 0.4);
-    
     --secondary: #8B5CF6;
     --secondary-glow: rgba(139, 92, 246, 0.4);
-
     --accent: #06B6D4;
     --accent-glow: rgba(6, 182, 212, 0.4);
 
@@ -23,11 +113,16 @@
     --danger: #EF4444;
   }
 
+  html {
+    background-color: var(--background);
+  }
+
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   /* Custom Scrollbar */
@@ -36,101 +131,101 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #05070B;
+    background: var(--scrollbar-track);
   }
   ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: var(--scrollbar-thumb);
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3B82F6;
+    background: var(--primary);
   }
 }
 
 /* Glassmorphism Styles */
 .glass-panel {
-  background: rgba(10, 15, 30, 0.65);
+  background: var(--glass-panel-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
 }
 
 .glass-card {
-  background: rgba(13, 20, 35, 0.45);
+  background: var(--card);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(59, 130, 246, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(59, 130, 246, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.08);
+  border-color: color-mix(in srgb, var(--primary) 20%, transparent);
+  box-shadow: 0 12px 40px 0 color-mix(in srgb, var(--primary) 8%, transparent);
 }
 
 .glass-card-purple {
-  background: rgba(15, 10, 35, 0.4);
+  background: var(--card);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(139, 92, 246, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid color-mix(in srgb, var(--secondary) 8%, transparent);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-purple:hover {
-  border-color: rgba(139, 92, 246, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.08);
+  border-color: color-mix(in srgb, var(--secondary) 20%, transparent);
+  box-shadow: 0 12px 40px 0 color-mix(in srgb, var(--secondary) 8%, transparent);
 }
 
 .glass-card-cyan {
-  background: rgba(10, 20, 30, 0.4);
+  background: var(--card);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(6, 182, 212, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card-cyan:hover {
-  border-color: rgba(6, 182, 212, 0.2);
-  box-shadow: 0 12px 40px 0 rgba(6, 182, 212, 0.08);
+  border-color: color-mix(in srgb, var(--accent) 20%, transparent);
+  box-shadow: 0 12px 40px 0 color-mix(in srgb, var(--accent) 8%, transparent);
 }
 
 .glass-input {
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: #F8FAFC;
+  background: var(--glass-input-bg);
+  border: 1px solid var(--edge);
+  color: var(--foreground);
   transition: all 0.2s ease-in-out;
 }
 
 .glass-input:focus {
-  border-color: #3B82F6;
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+  border-color: var(--primary);
+  box-shadow: 0 0 15px var(--primary-glow);
   outline: none;
 }
 
 /* Neon Glows and Gradients */
 .glow-text-blue {
-  text-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  text-shadow: 0 0 10px var(--primary-glow);
 }
 
 .glow-text-purple {
-  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  text-shadow: 0 0 10px var(--secondary-glow);
 }
 
 .glow-text-cyan {
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+  text-shadow: 0 0 10px var(--accent-glow);
 }
 
 .glow-bg-blue {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--primary) 15%, transparent);
 }
 
 .glow-bg-purple {
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--secondary) 15%, transparent);
 }
 
 .glow-bg-cyan {
-  box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+  box-shadow: 0 0 30px color-mix(in srgb, var(--accent) 15%, transparent);
 }
 
 /* Animated Border Container */
@@ -150,8 +245,8 @@
   background: conic-gradient(
     from 0deg,
     transparent 20%,
-    #3B82F6 40%,
-    #06B6D4 60%,
+    var(--primary) 40%,
+    var(--accent) 60%,
     transparent 80%
   );
   animation: rotate-border 6s linear infinite;
@@ -160,7 +255,7 @@
 
 .animated-border-content {
   position: relative;
-  background: #090E1A;
+  background: var(--border-box-bg);
   border-radius: 11px;
   z-index: 10;
   margin: 1px;
@@ -178,31 +273,31 @@
 
 /* React Flow custom style integration */
 .react-flow__renderer {
-  background: #05070B !important;
+  background: var(--background) !important;
 }
 
 .react-flow__minimap {
-  background: rgba(13, 20, 35, 0.85) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: var(--glass-panel-bg) !important;
+  border: 1px solid var(--glass-border) !important;
   border-radius: 8px !important;
 }
 
 .react-flow__controls {
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid var(--glass-border) !important;
   border-radius: 8px !important;
   overflow: hidden;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37) !important;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow) !important;
 }
 
 .react-flow__controls-button {
-  background: rgba(13, 20, 35, 0.85) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  color: #F8FAFC !important;
-  fill: #F8FAFC !important;
+  background: var(--surface) !important;
+  border-bottom: 1px solid var(--edge) !important;
+  color: var(--foreground) !important;
+  fill: var(--foreground) !important;
 }
 
 .react-flow__controls-button:hover {
-  background: #1E293B !important;
+  background: var(--surface-2) !important;
 }
 
 .react-flow__edge-path {

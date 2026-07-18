@@ -94,10 +94,10 @@ export default function AskPage() {
       
       {/* Top Banner Header */}
       <div>
-        <h1 className="text-3xl font-extrabold font-outfit text-white tracking-tight flex items-center gap-2">
+        <h1 className="text-3xl font-extrabold font-outfit text-foreground tracking-tight flex items-center gap-2">
           Simulation Laboratory
         </h1>
-        <p className="text-slate-400 text-xs mt-1">
+        <p className="text-muted text-xs mt-1">
           Draft a business question or select a template to project operational paths before committing capital.
         </p>
       </div>
@@ -121,9 +121,9 @@ export default function AskPage() {
             </div>
 
             <div className="space-y-2 relative z-10 max-w-md">
-              <h3 className="text-lg font-bold font-outfit text-white">Chronos Business Time Machine Running</h3>
+              <h3 className="text-lg font-bold font-outfit text-foreground">Chronos Business Time Machine Running</h3>
               <p className="text-xs text-blue-400 font-mono tracking-wide h-6">{loaderMessage}</p>
-              <p className="text-[11px] text-slate-500 mt-4 leading-relaxed">
+              <p className="text-[11px] text-faint mt-4 leading-relaxed">
                 We are evaluating transaction logs and adjusting supplier delivery vectors. This takes just a moment.
               </p>
             </div>
@@ -140,11 +140,11 @@ export default function AskPage() {
               
               {/* Question text box */}
               <div>
-                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-2.5">
                   Business Question Prompt
                 </label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                  <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-faint">
                     <MessageSquareCode className="h-5 w-5" />
                   </span>
                   <input
@@ -153,7 +153,7 @@ export default function AskPage() {
                     value={question}
                     onChange={(e) => setQuestion(e.target.value)}
                     placeholder="e.g. Raise menu prices on premium burgers and domestic beers by 12%?"
-                    className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm glass-input text-slate-200"
+                    className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm glass-input text-strong"
                   />
                 </div>
               </div>
@@ -163,14 +163,14 @@ export default function AskPage() {
                 
                 {/* Decision Type */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-2.5">
                     Decision Category
                   </label>
                   <div className="relative">
                     <select
                       value={decisionType}
                       onChange={(e) => setDecisionType(e.target.value as SimulationRequest['decisionType'])}
-                      className="w-full px-4 py-3 rounded-xl text-sm glass-input text-slate-200 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl text-sm glass-input text-strong appearance-none cursor-pointer"
                     >
                       <option value="pricing">Pricing Adjustments</option>
                       <option value="staffing">Staff Shift Scheduling</option>
@@ -179,33 +179,33 @@ export default function AskPage() {
                       <option value="expansion">Facility seat expansions</option>
                       <option value="general">General Operations</option>
                     </select>
-                    <ChevronDown className="h-4.5 w-4.5 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <ChevronDown className="h-4.5 w-4.5 text-faint absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 
                 {/* Horizon Months */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-2.5">
                     Simulation Horizon
                   </label>
                   <div className="relative">
                     <select
                       value={horizonMonths}
                       onChange={(e) => setHorizonMonths(Number(e.target.value))}
-                      className="w-full px-4 py-3 rounded-xl text-sm glass-input text-slate-200 appearance-none cursor-pointer"
+                      className="w-full px-4 py-3 rounded-xl text-sm glass-input text-strong appearance-none cursor-pointer"
                     >
                       <option value="1">1 Month Outlook</option>
                       <option value="3">3 Months Standard Outlook</option>
                       <option value="6">6 Months Long-range</option>
                       <option value="12">12 Months Macro Outlook</option>
                     </select>
-                    <ChevronDown className="h-4.5 w-4.5 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <ChevronDown className="h-4.5 w-4.5 text-faint absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 
                 {/* Factor Change (Multiplier Delta) */}
                 <div>
-                  <label className="flex justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <label className="flex justify-between text-xs font-semibold text-muted uppercase tracking-wider mb-2.5">
                     <span>Adjustment Factor</span>
                     <span className="text-blue-400 font-bold">{factorChange > 0 ? `+${factorChange}` : factorChange}%</span>
                   </label>
@@ -216,9 +216,9 @@ export default function AskPage() {
                     step="5"
                     value={factorChange}
                     onChange={(e) => setFactorChange(Number(e.target.value))}
-                    className="w-full h-1.5 bg-slate-950 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                    className="w-full h-1.5 bg-surface-deep rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
-                  <div className="flex justify-between text-[10px] text-slate-600 mt-1 font-mono">
+                  <div className="flex justify-between text-[10px] text-faint mt-1 font-mono">
                     <span>-50% Cut</span>
                     <span>No Shift</span>
                     <span>+50% Growth</span>
@@ -227,7 +227,7 @@ export default function AskPage() {
 
                 {/* Description details */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2.5">
+                  <label className="block text-xs font-semibold text-muted uppercase tracking-wider mb-2.5">
                     Context / Assumptions
                   </label>
                   <input
@@ -235,7 +235,7 @@ export default function AskPage() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe external changes, e.g. local supplier warning"
-                    className="w-full px-4 py-3 rounded-xl text-sm glass-input text-slate-200"
+                    className="w-full px-4 py-3 rounded-xl text-sm glass-input text-strong"
                   />
                 </div>
 
@@ -254,9 +254,9 @@ export default function AskPage() {
             {/* Templates Sidebar */}
             <div className="space-y-5">
               <div className="glass-card p-6 rounded-2xl">
-                <div className="flex items-center gap-2 border-b border-slate-800/80 pb-4 mb-4">
-                  <Settings2 className="h-4.5 w-4.5 text-slate-400" />
-                  <h3 className="text-sm font-bold font-outfit text-white uppercase tracking-wider">Quick Templates</h3>
+                <div className="flex items-center gap-2 border-b border-edge/80 pb-4 mb-4">
+                  <Settings2 className="h-4.5 w-4.5 text-muted" />
+                  <h3 className="text-sm font-bold font-outfit text-foreground uppercase tracking-wider">Quick Templates</h3>
                 </div>
 
                 <div className="space-y-3">
@@ -287,20 +287,20 @@ export default function AskPage() {
                       key={idx}
                       type="button"
                       onClick={() => handleQuickTemplate(tpl.q, tpl.type, tpl.val, tpl.desc)}
-                      className="w-full text-left p-3.5 rounded-xl border border-slate-800/80 bg-slate-900/10 hover:border-slate-700 hover:bg-slate-900/40 transition-all text-xs space-y-1.5"
+                      className="w-full text-left p-3.5 rounded-xl border border-edge/80 bg-surface/10 hover:border-edge-strong hover:bg-surface/40 transition-all text-xs space-y-1.5"
                     >
                       <div className="flex justify-between items-center">
-                        <span className="font-bold text-slate-300">{tpl.label}</span>
+                        <span className="font-bold text-strong">{tpl.label}</span>
                         <span className="text-[10px] text-blue-400 font-semibold">{tpl.val > 0 ? `+${tpl.val}` : tpl.val}%</span>
                       </div>
-                      <p className="text-slate-400 leading-normal truncate">{tpl.q}</p>
+                      <p className="text-muted leading-normal truncate">{tpl.q}</p>
                     </button>
                   ))}
                 </div>
               </div>
 
               {/* Explanatory Info Card */}
-              <div className="p-5 rounded-2xl border border-slate-800 bg-slate-900/20 text-xs text-slate-400 leading-normal flex gap-3">
+              <div className="p-5 rounded-2xl border border-edge bg-surface/20 text-xs text-muted leading-normal flex gap-3">
                 <Info className="h-4.5 w-4.5 text-blue-400 flex-shrink-0 mt-0.5" />
                 <p>
                   Chronos simulations map adjustments across key supply lines. Results detail Optimistic, Likely, and Pessimistic timelines including risk projections.

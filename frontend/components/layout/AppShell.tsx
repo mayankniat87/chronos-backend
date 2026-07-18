@@ -58,7 +58,7 @@ export default function AppShell({ children }: AppShellProps) {
 
   if (loading) {
     return (
-      <div className="flex h-screen w-screen items-center justify-center bg-[#05070B] text-slate-400">
+      <div className="flex h-screen w-screen items-center justify-center bg-background text-muted">
         <div className="flex flex-col items-center gap-3">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-blue-500 border-t-transparent" />
           <p className="text-sm font-semibold tracking-wide text-blue-400">Restoring Chronos Session...</p>
@@ -69,11 +69,11 @@ export default function AppShell({ children }: AppShellProps) {
 
   // Pure page view for Landing and Login pages
   if (isPublicPage) {
-    return <main className="flex-1 w-full bg-[#05070B] min-h-screen">{children}</main>;
+    return <main className="flex-1 w-full bg-background min-h-screen">{children}</main>;
   }
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-slate-100 flex">
+    <div className="min-h-screen bg-background text-foreground flex">
       {/* Sidebar Navigation */}
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
